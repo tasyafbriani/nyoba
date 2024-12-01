@@ -88,13 +88,6 @@ definePageMeta({
 const supabase = useSupabaseClient()
 const transactions = ref([])
 const selectedDate = ref('');
-
-// const date = new Date().toISOString().split('T')[0];  // Format tanggal 'YYYY-MM-DD'
-// const { data, error } = await supabase
-//   .from('d_pembayaran')
-//   .select('*')
-//   .eq('tgl', date);  // sekarang tanggal dikirim sebagai string
-
 const getTransactions = async () => {
   if (selectedDate.value) {
     const { data, error } = await supabase
@@ -111,27 +104,6 @@ const getTransactions = async () => {
     console.log('Tanggal belum dipilih.');
   }
 };
-
-// const getTransactions = async () => {
-//   // const { data, error } = await supabase.from('transaksi').select('*, produk(*)');
-//   const { data, error } = await supabase.from('d_pembayaran').select('*')
-//   .eq('tgl',new Date().toISOString().split('T')[0]);
-//   if (data) transactions.value=data
-//   if (error) {
-//     console.error('Error fetching transactions:', error);
-//     return;
-//   }
-
-//   if (data) {
-//     transactions.value = data
-//   }
-// };
-
-
-// Panggil fungsi untuk mengambil data saat komponen dimuat
-// onMounted(() => {
-//   getTransactions();
-// });
 
 onMounted(() => {
   // Mengambil data untuk tanggal default (misalnya, hari ini)

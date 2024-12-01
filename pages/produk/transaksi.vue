@@ -130,16 +130,18 @@
     
 
     <!-- Modal Konfirmasi Hapus -->
-    <div v-if="showConfirmModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div v-if="showConfirmModal" class="fixed inset-0 bg-opacity-50 flex justify-center items-center"
+     style="background-color: #fff6f4; border-radius: 20px; width: 90%; height: 90%; max-width: 800px; max-height: 800px; right: 70%; transform: translateX(70%);">
       <div class="bg-white w-11/12 md:w-96 p-6 rounded-lg shadow-xl">
         <h3 class="text-lg font-semibold mb-4">Konfirmasi Hapus</h3>
         <p>{{ visitorToDelete?.nama }} yakin mau dihapus?</p>
         <div class="flex justify-between mt-4">
-          <button @click="hapusData" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Delete</button>
-          <button @click="showConfirmModal = false" class="bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded">Cancel</button>
+          <button @click="hapusData" class="btn btn-primary">Delete</button>
+          <button @click="showConfirmModal = false" class="btn btn-danger">Cancel</button>
         </div>
       </div>
     </div>
+
 </template>
 
 <script setup>
