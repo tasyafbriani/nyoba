@@ -85,8 +85,50 @@
       
     </table>
 
-   <!-- Modal Edit -->
-  <div 
+ <!-- Modal Konfirmasi Hapus -->
+ <div 
+    v-if="showConfirmModal" 
+    class="modal d-block" 
+    tabindex="-1" 
+    style="background-color: rgba(0,0,0,0.5);"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Konfirmasi Hapus</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            @click="showConfirmModal = false"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah {{ visitorToDelete?.nama }} yakin mau dihapus?</p>
+        </div>
+        <div class="modal-footer">
+          <button 
+            @click="showConfirmModal = false" 
+            class="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <button 
+            @click="hapusData" 
+            class="btn btn-danger"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- Modal Edit -->
+    <div 
     v-if="isEditing" 
     class="modal d-block" 
     tabindex="-1" 
@@ -173,9 +215,8 @@
       </div>
     </div>
   </div>
-
-  <!-- Modal Konfirmasi Hapus -->
-  <div 
+ <!-- Modal Konfirmasi Hapus -->
+ <div 
     v-if="showConfirmModal" 
     class="modal d-block" 
     tabindex="-1" 
@@ -211,7 +252,7 @@
       </div>
     </div>
   </div>
-</div>
+
 
 </template>
 
@@ -336,17 +377,23 @@ onMounted(() => {
 });
 
 const updateData = async () => {
-  const { error } = await supabase.from("produk").update({
-    nama: selectedVisitor.value.nama,
-    kelas: selectedVisitor.value.kelas,
-    nama_barang: selectedVisitor.value.nama_barang,
-    harga: selectedVisitor.value.harga,
-    jumlah: selectedVisitor.value.jumlah
-  }).eq('id', selectedVisitor.value.id);
+  const id = selectedVisitor.value.id; // Pastikan id ini adalah angka
+  const { nama, kelas, nama_barang, harga, jumlah } = selectedVisitor.value; // Destrukturisasi objek
+
+  const { error } = await supabase
+    .from("produk")
+    .update({
+      nama,
+      kelas,
+      nama_barang,
+      harga: parseInt(harga), // Pastikan harga dalam bentuk angka
+      jumlah: parseInt(jumlah) // Pastikan jumlah dalam bentuk angka
+    })
+    .eq("id", parseInt(id)); // Pastikan id juga dalam bentuk angka
 
   if (!error) {
     isEditing.value = false;
-    getproduk();
+    getproduk(); // Refresh data setelah update
   } else {
     console.error("Error updating data:", error);
   }

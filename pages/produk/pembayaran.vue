@@ -21,7 +21,7 @@
   <div class="col-auto">
     <button @click="downloadExcel" class="btn d-flex align-items-center" type="button" style="height: 3rem; background-color: #3dff13;">
       <!-- SVG for Download Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16" style="margin-right: 5px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16" style="margin-right: 5px;">
         <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
       </svg> 
@@ -115,7 +115,7 @@ onMounted(() => {
 <style scoped>
 .btn {
   border: none;
-  color: white;
+  color:black;
   background: #39ff27;
   margin: 0 0.5rem; 
   padding: 10px 15px;
@@ -132,8 +132,8 @@ onMounted(() => {
   cursor: pointer;
 }
 .bi {
-  width: 40px;
-  height: 40px;
-  fill: #FFB085; 
+  width: 30px;
+  height: 30px;
+  fill: black; 
 }
 </style>
