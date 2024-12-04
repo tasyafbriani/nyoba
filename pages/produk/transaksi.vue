@@ -85,62 +85,133 @@
       
     </table>
 
-    <!-- Popup Edit -->
-     
-    <div v-if="isEditing" class="fixed inset-0 bg-opacity-50 flex justify-center items-center"
-     style="background-color: #fff6f4; border-radius: 20px; width: 90%; height: 90%; max-width: 800px; max-height: 800px; right: 30%; transform: translateX(30%);">
-
-      <div class="col text-center">
-        <h2 class="mb-4">Edit Data</h2>
-      </div>
-
-
-        <!-- Form Edit -->
-        <div class="row justify-content-center">
-          <div class="col-lg-6 col-md-8">
-            <div class="text-center mb-3">
-            <input  v-model="selectedVisitor.nama" type="text" class="form-control form-control-lg radius" placeholder="Nama:" />
-          </div>
-        <div class="text-center mb-3">
-            <select  v-model="selectedVisitor.kelas"  class="form-control form-select-lg radius" aria-label="Kelas">
-              <option value="" selected>Kelas</option>
-              <option v-for="(member, i) in members" :key="i" :value="member.id">{{ member.nama }}</option>
-            </select>
-          </div>
-          <div class="text-center mb-3">
-            <input v-model="selectedVisitor.nama_barang" type="text" class="form-control form-control-lg radius" placeholder="Nama Barang:" />
-          </div>
-          <div class="text-center mb-3">
-            <input  v-model="selectedVisitor.harga" type="text" class="form-control form-control-lg radius" placeholder="Harga:" />
-          </div>
-        <div class="text-center mb-3">
-            <input  v-model="selectedVisitor.jumlah" type="number" class="form-control form-control-lg radius" placeholder="Jumlah:" />
+   <!-- Modal Edit -->
+  <div 
+    v-if="isEditing" 
+    class="modal d-block" 
+    tabindex="-1" 
+    style="background-color: rgba(0,0,0,0.5);"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Data</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            @click="isEditing = false"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="mb-3">
+                <input  
+                  v-model="selectedVisitor.nama" 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  placeholder="Nama:" 
+                />
+              </div>
+              <div class="mb-3">
+                <select  
+                  v-model="selectedVisitor.kelas"  
+                  class="form-select form-select-lg" 
+                  aria-label="Kelas"
+                >
+                  <option value="" selected>Kelas</option>
+                  <option 
+                    v-for="(member, i) in members" 
+                    :key="i" 
+                    :value="member.id"
+                  >
+                    {{ member.nama }}
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <input 
+                  v-model="selectedVisitor.nama_barang" 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  placeholder="Nama Barang:" 
+                />
+              </div>
+              <div class="mb-3">
+                <input  
+                  v-model="selectedVisitor.harga" 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  placeholder="Harga:" 
+                />
+              </div>
+              <div class="mb-3">
+                <input  
+                  v-model="selectedVisitor.jumlah" 
+                  type="number" 
+                  class="form-control form-control-lg" 
+                  placeholder="Jumlah:" 
+                />
+              </div>
+            </div>
           </div>
         </div>
-  
-
-        <!-- Tombol Simpan dan Batal -->
-        <div class="mb-5 d-flex justify-content-center">
-          <button @click="updateData" class="btn btn-primary">Save</button>
-          <button @click="isEditing = false" class="btn btn-danger">Cancel</button>
+        <div class="modal-footer">
+          <button 
+            @click="isEditing = false" 
+            class="btn btn-danger"
+          >
+            Cancel
+          </button>
+          <button 
+            @click="updateData" 
+            class="btn btn-primary"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
-    </div>
-    
+  </div>
 
-    <!-- Modal Konfirmasi Hapus -->
-    <div v-if="showConfirmModal" class="fixed inset-0 bg-opacity-50 flex justify-center items-center"
-     style="background-color: #fff6f4; border-radius: 20px; width: 90%; height: 90%; max-width: 800px; max-height: 800px; right: 70%; transform: translateX(70%);">
-      <div class="bg-white w-11/12 md:w-96 p-6 rounded-lg shadow-xl">
-        <h3 class="text-lg font-semibold mb-4">Konfirmasi Hapus</h3>
-        <p>{{ visitorToDelete?.nama }} yakin mau dihapus?</p>
-        <div class="flex justify-between mt-4">
-          <button @click="hapusData" class="btn btn-primary">Delete</button>
-          <button @click="showConfirmModal = false" class="btn btn-danger">Cancel</button>
+  <!-- Modal Konfirmasi Hapus -->
+  <div 
+    v-if="showConfirmModal" 
+    class="modal d-block" 
+    tabindex="-1" 
+    style="background-color: rgba(0,0,0,0.5);"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Konfirmasi Hapus</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            @click="showConfirmModal = false"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah {{ visitorToDelete?.nama }} yakin mau dihapus?</p>
+        </div>
+        <div class="modal-footer">
+          <button 
+            @click="showConfirmModal = false" 
+            class="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <button 
+            @click="hapusData" 
+            class="btn btn-danger"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
 </template>
 
